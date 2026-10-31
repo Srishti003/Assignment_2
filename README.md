@@ -3,12 +3,13 @@
 [![.NET 10](https://img.shields.io/badge/.NET-10.0-purple.svg)](https://dotnet.microsoft.com/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue.svg)](https://www.postgresql.org/)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg)](https://www.docker.com/)
-[![Tests](https://img.shields.io/badge/Unit%20Tests-35%20Passed-brightgreen.svg)]()
-
 A robust, enterprise-grade **Banking Ledger API** built following **Domain-Driven Design (DDD)** and **Clean Architecture** principles using **C# .NET 10**, **ASP.NET Core**, **Entity Framework Core (Code-First)**, and **PostgreSQL**.
 
 ---
-
+## Adding working screenshots of the service
+![alt text](image.png)
+![alt text](image-1.png)
+![alt text](image-2.png)
 ## 🏛️ Architecture & DDD Overview
 
 The solution adheres strictly to **Domain-Driven Design (DDD)** and the **Clean Architecture (Onion Architecture)** pattern, ensuring separation of concerns, testability, and business rule encapsulation.
@@ -51,7 +52,7 @@ flowchart TD
     Presentation --> Infrastructure
 ```
 
-### Why this design? (Explaining to the Project Manager)
+### Why this design?
 1. **Aggregate Root Guardian (`Account`)**: In banking, balance consistency is non-negotiable. By treating `Account` as the aggregate root, external services cannot modify a customer's balance without generating an immutable `Transaction` record.
 2. **Transaction Immutability**: All financial entries are append-only. There are no `PUT`, `PATCH`, or `DELETE` endpoints. If an error occurs in the real world, a compensating counter-transaction is posted.
 3. **Atomicity Guarantee**: Single transactions and inter-account transfers run within explicit database transactions (`IUnitOfWork`). If any part fails (such as insufficient balance on a debit), the entire operation rolls back.
@@ -113,43 +114,30 @@ docker compose down
    Navigate to [http://localhost:5000](http://localhost:5000) (or the URL displayed in the terminal).
 
 ---
-
-## 🧪 Running Unit Tests
-
-The test suite covers domain invariants, overdraft protection, balance consistency, atomicity, idempotency, and validators.
-
-Run tests via the .NET CLI:
-```bash
-dotnet test BankingLedger.slnx
-```
-
-**Test Results:**
-```
-Passed! - Failed: 0, Passed: 35, Skipped: 0, Total: 35
-```
-
----
-
 ## 📖 API Usage & cURL Examples
 
 ### 1. Open an Account
+
 ```bash
 curl -X POST http://localhost:5000/api/v1/accounts \
   -H "Content-Type: application/json" \
   -d '{
-    "accountName": "Alice Johnson",
+    "accountName": "Srishti Chaturvedi",
     "initialBalance": 100.00
   }'
 ```
-*Returns `201 Created` with the new `id` (e.g. `e0b965c4-0822-4467-bc1a-637dc4130091`).*
+
+**Returns `201 Created` with the new `id` (e.g. `e0b965c4-0822-4467-bc1a-637dc4130091`).**
 
 ---
 
 ### 2. Check Account Balance
+
 ```bash
 curl -X GET http://localhost:5000/api/v1/accounts/e0b965c4-0822-4467-bc1a-637dc4130091/balance
 ```
-*Returns:*
+
+**Returns:**
 ```json
 {
   "accountId": "e0b965c4-0822-4467-bc1a-637dc4130091",
@@ -161,6 +149,7 @@ curl -X GET http://localhost:5000/api/v1/accounts/e0b965c4-0822-4467-bc1a-637dc4
 ---
 
 ### 3. Post a Credit Transaction
+
 ```bash
 curl -X POST http://localhost:5000/api/v1/accounts/e0b965c4-0822-4467-bc1a-637dc4130091/transactions \
   -H "Content-Type: application/json" \
@@ -171,11 +160,13 @@ curl -X POST http://localhost:5000/api/v1/accounts/e0b965c4-0822-4467-bc1a-637dc
     "description": "Consulting invoice deposit"
   }'
 ```
-*Returns `201 Created` with updated balance: `150.00`.*
+
+**Returns `201 Created` with updated balance: `150.00`.**
 
 ---
 
 ### 4. Post a Debit Transaction (With Overdraft Protection)
+
 ```bash
 curl -X POST http://localhost:5000/api/v1/accounts/e0b965c4-0822-4467-bc1a-637dc4130091/transactions \
   -H "Content-Type: application/json" \
@@ -186,17 +177,21 @@ curl -X POST http://localhost:5000/api/v1/accounts/e0b965c4-0822-4467-bc1a-637dc
     "description": "Office supplies"
   }'
 ```
-*Returns `201 Created` with updated balance: `120.00`.*
 
-*(If amount exceeds balance, returns `422 Unprocessable Entity` with current balance details and no balance change).*
+**Returns `201 Created` with updated balance: `120.00`.**
+
+**(If amount exceeds balance, returns `422 Unprocessable Entity` with current balance details and no balance change).**
 
 ---
 
 ### 5. Query Paginated Transactions (Latest-First)
+
 ```bash
 curl -X GET "http://localhost:5000/api/v1/accounts/e0b965c4-0822-4467-bc1a-637dc4130091/transactions?page=1&limit=10"
 ```
-*Returns transactions sorted strictly by `created_at` latest-first:*
+
+**Returns transactions sorted strictly by `created_at` latest-first:**
+
 ```json
 {
   "currentPage": 1,
@@ -238,7 +233,8 @@ curl -X GET "http://localhost:5000/api/v1/accounts/e0b965c4-0822-4467-bc1a-637dc
 ---
 
 ### 6. Bonus: Atomic Inter-Account Money Transfer
-Transfer \$30 from Account A (balance 100) to Account B (balance 50):
+
+Transfer $30 from Srishti Chaturvedi (Account A, balance 100) to Aarav Sharma (Account B, balance 50):
 
 ```bash
 curl -X POST http://localhost:5000/api/v1/transfers \
@@ -251,7 +247,9 @@ curl -X POST http://localhost:5000/api/v1/transfers \
     "description": "Monthly subscription transfer"
   }'
 ```
-*Returns `200 OK`:*
+
+**Returns `200 OK`:**
+
 ```json
 {
   "id": "11223344-5566-7788-9900-aabbccddeeff",
@@ -270,7 +268,7 @@ curl -X POST http://localhost:5000/api/v1/transfers \
 
 ## 🗂️ Project Directory Structure
 
-```
+```text
 d:\Assignment2\
 ├── BankingLedger.slnx                       # Solution definition (.NET 10)
 ├── docker-compose.yml                      # PostgreSQL & Web API container orchestration
@@ -285,9 +283,9 @@ d:\Assignment2\
 │   ├── BankingLedger.Domain/               # Pure C# Domain Layer (Aggregate Root, Entities, Invariants)
 │   │   ├── Common/                         # BaseEntity, IAggregateRoot
 │   │   ├── Entities/                       # Account, Transaction, Transfer
-│   │   ├── Enums/                          # TransactionType, TransferStatus
+│   │   ├── Enums/                           # TransactionType, TransferStatus
 │   │   ├── Exceptions/                     # InsufficientBalanceException, etc.
-│   │   └── ValueObjects/                   # Money, ReferenceId
+│   │   └── ValueObjects/                    # Money, ReferenceId
 │   ├── BankingLedger.Application/          # Application Layer (Use cases, DTOs, Validators)
 │   │   ├── Common/                         # PagedResult, PaginationParams
 │   │   ├── DTOs/                           # AccountDto, TransactionDto, TransferDto
