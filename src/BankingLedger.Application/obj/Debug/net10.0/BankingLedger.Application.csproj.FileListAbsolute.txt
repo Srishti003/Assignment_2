@@ -1,0 +1,15 @@
+D:\Assignment2\src\BankingLedger.Application\bin\Debug\net10.0\BankingLedger.Application.deps.json
+D:\Assignment2\src\BankingLedger.Application\bin\Debug\net10.0\BankingLedger.Application.dll
+D:\Assignment2\src\BankingLedger.Application\bin\Debug\net10.0\BankingLedger.Application.pdb
+D:\Assignment2\src\BankingLedger.Application\bin\Debug\net10.0\BankingLedger.Domain.dll
+D:\Assignment2\src\BankingLedger.Application\bin\Debug\net10.0\BankingLedger.Domain.pdb
+D:\Assignment2\src\BankingLedger.Application\obj\Debug\net10.0\BankingLedger.Application.csproj.AssemblyReference.cache
+D:\Assignment2\src\BankingLedger.Application\obj\Debug\net10.0\BankingLedger.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\Assignment2\src\BankingLedger.Application\obj\Debug\net10.0\BankingLedger.Application.AssemblyInfoInputs.cache
+D:\Assignment2\src\BankingLedger.Application\obj\Debug\net10.0\BankingLedger.Application.AssemblyInfo.cs
+D:\Assignment2\src\BankingLedger.Application\obj\Debug\net10.0\BankingLedger.Application.csproj.CoreCompileInputs.cache
+D:\Assignment2\src\BankingLedger.Application\obj\Debug\net10.0\BankingL.4E943475.Up2Date
+D:\Assignment2\src\BankingLedger.Application\obj\Debug\net10.0\BankingLedger.Application.dll
+D:\Assignment2\src\BankingLedger.Application\obj\Debug\net10.0\refint\BankingLedger.Application.dll
+D:\Assignment2\src\BankingLedger.Application\obj\Debug\net10.0\BankingLedger.Application.pdb
+D:\Assignment2\src\BankingLedger.Application\obj\Debug\net10.0\ref\BankingLedger.Application.dll
